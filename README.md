@@ -330,6 +330,3 @@ Animator的话是必须使用状态机的，Animation就只是单个动画。
 [看这个就好，不想抄了](https://blog.csdn.net/u012138730/article/details/81143413)
 
 
-
-## 图形学和shader相关（？
-
