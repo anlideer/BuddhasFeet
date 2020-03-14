@@ -295,7 +295,7 @@ CPU管理，内存管理，设备管理，文件管理，提供用户接口
 
 
 
-## Unity相关
+## Unity 游戏相关
 
 ### AssetBundle
 
@@ -329,4 +329,8 @@ Animator的话是必须使用状态机的，Animation就只是单个动画。
 
 [看这个就好，不想抄了](https://blog.csdn.net/u012138730/article/details/81143413)
 
+### 游戏AI
 
+[行为树和状态机](https://gameinstitute.qq.com/community/detail/118350)
+
+行为树更像策划层面的，而实现层面则依赖状态机。
