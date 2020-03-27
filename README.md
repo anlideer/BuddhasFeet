@@ -6,7 +6,9 @@
 
 ### STL
 
-vector封装了数组（vector不能传引用类型，因为引用类型不能赋值，不符合vector的要求（能赋值，能复制）
+vector封装了数组（vector不能传引用类型，因为引用类型不能赋值，不符合vector的要求（能赋值，能复制）[vector内存申请](https://blog.csdn.net/moonboat0331/article/details/10617731) Vector内存分配使用的是STL的allocator分配器，采用二层分配机制，申请内存大于128K时使用malloc，小于128K时使用内存池
+
+(内存池：避免内存碎片，提高内存申请释放效率) clear和erase都减少vector的size，但不会减少它的capacity [关于内存池](https://blog.csdn.net/K346K346/article/details/49538975)
 
 list封装了链表
 
@@ -86,9 +88,9 @@ C++98用的是auto_ptr，后来有了移动语义，诞生了unique_ptr来取代
 
 保存指向某个对象的指针，当它本身被删除释放的时候，会使用给定的删除器释放它指向的对象
 
-这个应该是强指针**share_ptr**：资源可以被多个指针共享，使用计数机制来表明资源被几个指针共享。构造+1，release-1（但比如说两个对象互相持有，就两个最后都不会被销毁而且没法互相使用，造成臭名昭著的内存泄露。
+强指针**share_ptr**：资源可以被多个指针共享，使用计数机制来表明资源被几个指针共享。构造+1，release-1（但比如说两个对象互相持有，就两个最后都不会被销毁而且没法互相使用，造成臭名昭著的内存泄露。
 
-这个应该是弱指针**weak_ptr**：为了解决shared_ptr互相引用时的死锁问题，它是对对象的一种弱引用，不会增加对象的引用计数，和shared_ptr之间可以相互转化，shared_ptr可以直接赋值给它，它可以通过调用lock函数来获得shared_ptr。
+弱指针**weak_ptr**：为了解决shared_ptr互相引用时的死锁问题，它是对对象的一种弱引用，不会增加对象的引用计数，和shared_ptr之间可以相互转化，shared_ptr可以直接赋值给它，它可以通过调用lock函数来获得shared_ptr。
 
 注意的是我们不能通过weak_ptr直接访问对象的方法，比如B对象中有一个方法print(),我们不能这样访问，pa->pb_->print(); 英文pb_是一个weak_ptr，应该先把它转化为shared_ptr,如：shared_ptr<B> p = pa->pb_.lock();  p->print();
 
